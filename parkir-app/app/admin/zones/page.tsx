@@ -21,7 +21,13 @@ export default async function ZonesPage() {
           <CardTitle>Tambah Zona</CardTitle>
         </CardHeader>
         <CardContent>
-          <form action={createZone} className="flex flex-wrap items-end gap-3">
+          <form
+            action={async (formData) => {
+              "use server";
+              await createZone(formData);
+            }}
+            className="flex flex-wrap items-end gap-3"
+          >
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Nama zona</label>
               <input name="name" required placeholder="Area Depan" className="h-10 rounded-lg border border-slate-300 px-3 text-sm focus:border-slate-900 focus:outline-none" />
@@ -38,12 +44,10 @@ export default async function ZonesPage() {
               </select>
             </div>
             <button className="h-10 rounded-lg bg-slate-900 px-4 text-sm font-medium text-white hover:bg-slate-800">
-              Buat & generate slot
+              Buat 
             </button>
           </form>
-          <p className="mt-2 text-[11px] text-slate-400">
-            Kode slot ter-generate otomatis: huruf depan nama zona + nomor urut (mis. &quot;Area Depan&quot; → A-01 s/d A-10).
-          </p>
+          
         </CardContent>
       </Card>
 
@@ -63,7 +67,12 @@ export default async function ZonesPage() {
                     <Badge tone="blue">{z.capacity} kapasitas</Badge>
                     <Badge tone="green">{z.slots.filter((s) => s.status === "available").length} kosong</Badge>
                     <Badge tone="gray">{z.slots.length} slot</Badge>
-                    <form action={deleteZone}>
+                    <form
+                      action={async (formData) => {
+                        "use server";
+                        await deleteZone(formData);
+                      }}
+                    >
                       <input type="hidden" name="id" value={z.id} />
                       <button className="text-xs text-red-600 hover:underline" type="submit">Hapus zona</button>
                     </form>
@@ -87,7 +96,12 @@ export default async function ZonesPage() {
                       <div className="font-medium">{s.code}</div>
                       <div className="text-slate-500">{s.type}</div>
                       <div className="mt-1">
-                        <form action={deleteSlot}>
+                        <form
+                          action={async (formData) => {
+                            "use server";
+                            await deleteSlot(formData);
+                          }}
+                        >
                           <input type="hidden" name="id" value={s.id} />
                           <button className="text-[10px] text-red-600 hover:underline" type="submit">hapus</button>
                         </form>
@@ -100,7 +114,13 @@ export default async function ZonesPage() {
                 </div>
 
                 {/* Inline tambah 1 slot */}
-                <form action={createSlot} className="mt-4 flex flex-wrap items-end gap-2 border-t border-slate-100 pt-4">
+                <form
+                  action={async (formData) => {
+                    "use server";
+                    await createSlot(formData);
+                  }}
+                  className="mt-4 flex flex-wrap items-end gap-2 border-t border-slate-100 pt-4"
+                >
                   <input type="hidden" name="zoneId" value={z.id} />
                   <div>
                     <label className="block text-[11px] font-medium text-slate-500 mb-1">Kode</label>

@@ -1,0 +1,120 @@
+// Sistem Manajemen Parkir Kantor
+// Model data sesuai PARKIR_IMPLEMENTASI.md bagian 5
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // Dev: SQLite. Production: ganti provider ke "postgresql" + DATABASE_URL.
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  admin
+  petugas
+}
+
+enum VehicleType {
+  motor
+  mobil
+}
+
+enum SlotStatus {
+  available
+  occupied
+  maintenance
+}
+
+enum SessionStatus {
+  active
+  done
+  void
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(petugas)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sessionsIn   Session[] @relation("PetugasIn")
+  sessionsOut  Session[] @relation("PetugasOut")
+  shifts      Shift[]
+}
+
+model Zone {
+  id        String   @id @default(cuid())
+  name      String
+  capacity  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  slots Slot[]
+}
+
+model Slot {
+  id        String     @id @default(cuid())
+  zoneId    String
+  code      String
+  type      VehicleType
+  status    SlotStatus @default(available)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  zone     Zone      @relation(fields: [zoneId], references: [id], onDelete: Cascade)
+  sessions Session[]
+
+  @@unique([zoneId, code])
+}
+
+model Vehicle {
+  id         String   @id @default(cuid())
+  plate       String   @unique
+  type        VehicleType
+  ownerName   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  sessions Session[]
+}
+
+model Session {
+  id          String         @id @default(cuid())
+  vehicleId   String
+  slotId      String?
+  petugasInId String
+  petugasOutId String?
+  timeIn      DateTime       @default(now())
+  timeOut     DateTime?
+  fee         Float?
+  status      SessionStatus  @default(active)
+  voidReason  String?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  vehicle     Vehicle @relation(fields: [vehicleId], references: [id])
+  slot        Slot?   @relation(fields: [slotId], references: [id])
+  petugasIn   User    @relation("PetugasIn", fields: [petugasInId], references: [id])
+  petugasOut  User?   @relation("PetugasOut", fields: [petugasOutId], references: [id])
+
+  @@index([status])
+  @@index([vehicleId, status])
+}
+
+model Shift {
+  id        String   @id @default(cuid())
+  petugasId String
+  start     DateTime
+  end       DateTime?
+  createdAt DateTime @default(now())
+
+  petugas User @relation(fields: [petugasId], references: [id], onDelete: Cascade)
+
+  @@index([petugasId])
+}

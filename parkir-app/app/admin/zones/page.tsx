@@ -36,13 +36,7 @@ export default async function ZonesPage() {
               <label className="block text-sm font-medium text-slate-700 mb-1">Jumlah slot</label>
               <input name="capacity" type="number" min={1} defaultValue={10} required className="h-10 w-36 rounded-lg border border-slate-300 px-3 text-sm focus:border-slate-900 focus:outline-none" />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Tipe kendaraan</label>
-              <select name="type" className="h-10 rounded-lg border border-slate-300 px-3 text-sm focus:border-slate-900 focus:outline-none">
-                <option value="mobil">Mobil</option>
-                <option value="motor">Motor</option>
-              </select>
-            </div>
+            
             <button className="h-10 rounded-lg bg-slate-900 px-4 text-sm font-medium text-white hover:bg-slate-800">
               Buat 
             </button>
@@ -82,7 +76,7 @@ export default async function ZonesPage() {
               <CardContent>
                 {/* Slots grid */}
                 <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
-                  {z.slots.map((s) => (
+                  {z.slots.map((s) => ( 
                     <div
                       key={s.id}
                       className={`rounded-lg border p-2 text-center text-xs ${

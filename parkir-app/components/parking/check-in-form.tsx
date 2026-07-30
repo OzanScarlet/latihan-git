@@ -17,9 +17,6 @@ export function CheckInForm({ slots }: { slots: SlotT[] }) {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Masukkan Kendaraan</CardTitle>
-      </CardHeader>
       <CardContent>
         <form action={checkIn} className="space-y-4">
           <div>
@@ -31,7 +28,7 @@ export function CheckInForm({ slots }: { slots: SlotT[] }) {
               placeholder="B 1234 XYZ"
               className="flex h-12 w-full rounded-lg border border-slate-300 px-3 text-lg uppercase tracking-wide focus:border-slate-900 focus:outline-none"
             />
-            <p className="text-xs text-slate-400 mt-1">Format: huruf-angka-huruf</p>
+           
           </div>
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1">Tipe</label>
@@ -47,7 +44,7 @@ export function CheckInForm({ slots }: { slots: SlotT[] }) {
           </div>
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1">
-              Slot (opsional) — tersedia untuk {type}
+              Slot tersedia 
             </label>
             <select
               name="slotId"

@@ -18,9 +18,9 @@ export default async function CheckInPage() {
     zone: { name: s.zone.name },
   }));
 
-  return (
+  return (  
     <div className="space-y-4">
-      <h1 className="text-xl font-semibold text-slate-900">Check-in Kendaraan</h1>
+      <h1 className="text-xl font-semibold text-slate-900 text-center">Check-in Kendaraan</h1>
       <CheckInForm slots={slotData} />
     </div>
   );

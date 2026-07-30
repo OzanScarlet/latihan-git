@@ -6,8 +6,7 @@ generator client {
 }
 
 datasource db {
-  // Dev: SQLite. Production: ganti provider ke "postgresql" + DATABASE_URL.
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -117,4 +116,14 @@ model Shift {
   petugas User @relation(fields: [petugasId], references: [id], onDelete: Cascade)
 
   @@index([petugasId])
+}
+
+model ResetToken {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([token])
 }

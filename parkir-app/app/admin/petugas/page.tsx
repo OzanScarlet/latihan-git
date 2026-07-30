@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/card";
-import { createPetugas, togglePetugas } from "@/lib/actions/petugas";
+import { createPetugas, togglePetugas, resetPassword } from "@/lib/actions/petugas";
 
 export const dynamic = "force-dynamic";
 
@@ -63,6 +63,35 @@ export default async function PetugasPage() {
                       {u.active ? "nonaktifkan" : "aktifkan"}
                     </button>
                   </form>
+
+                  <details className="relative inline-block">
+                    <summary className="cursor-pointer text-xs text-blue-600 hover:underline select-none">
+                      reset
+                    </summary>
+                    <form
+                      action={async (formData) => {
+                        "use server";
+                        await resetPassword(formData);
+                      }}
+                      className="absolute right-0 top-6 z-10 flex gap-2 rounded-lg border border-slate-200 bg-white p-2 shadow-lg"
+                    >
+                      <input type="hidden" name="id" value={u.id} />
+                      <input
+                        name="newPassword"
+                        type="password"
+                        required
+                        minLength={6}
+                        placeholder="Password baru"
+                        className="h-8 w-36 rounded-md border border-slate-300 px-2 text-xs focus:border-slate-900 focus:outline-none"
+                      />
+                      <button
+                        type="submit"
+                        className="h-8 rounded-md bg-slate-900 px-2 text-xs font-medium text-white hover:bg-slate-800"
+                      >
+                        Simpan
+                      </button>
+                    </form>
+                  </details>
                 </div>
               </div>
             ))}

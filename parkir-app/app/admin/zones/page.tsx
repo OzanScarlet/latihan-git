@@ -37,8 +37,8 @@ export default async function ZonesPage() {
               <input name="capacity" type="number" min={1} defaultValue={10} required className="h-10 w-36 rounded-lg border border-slate-300 px-3 text-sm focus:border-slate-900 focus:outline-none" />
             </div>
             
-            <button className="h-10 rounded-lg bg-slate-900 px-4 text-sm font-medium text-white hover:bg-slate-800">
-              Buat 
+            <button type="submit" className="h-10 rounded-lg bg-slate-900 px-4 text-sm font-medium text-white hover:bg-slate-800">
+              Buat
             </button>
           </form>
           
@@ -127,7 +127,7 @@ export default async function ZonesPage() {
                       <option value="motor">Motor</option>
                     </select>
                   </div>
-                  <button className="h-9 rounded-lg border border-slate-300 px-3 text-sm font-medium hover:bg-slate-100">+ Tambah slot</button>
+                  <button type="submit" className="h-9 rounded-lg border border-slate-300 px-3 text-sm font-medium hover:bg-slate-100">+ Tambah slot</button>
                 </form>
               </CardContent>
             </Card>

@@ -1,5 +1,5 @@
 import { PrismaClient, Role, VehicleType, SlotStatus } from "@prisma/client";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcryptjs";  
 
 const prisma = new PrismaClient();
 

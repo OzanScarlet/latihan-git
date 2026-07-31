@@ -25,32 +25,51 @@ test.describe("Admin Petugas Management", () => {
   });
 
   test("toggle aktif/nonaktif akun", async ({ page }) => {
-    // Klik tombol toggle untuk Joko
-    const jokoRow = page.locator("text=joko@parkir.id").locator("xpath=ancestor::div[contains(@class,'flex')][1]");
+    // Pakai akun sendiri, jangan ganggu joko@parkir.id
+    const email = `toggle-${Date.now()}@parkir.id`;
+    await page.fill('input[name="name"]', "Petugas Toggle");
+    await page.fill('input[name="email"]', email);
+    await page.fill('input[name="password"]', "temp12345");
+    await page.selectOption('select[name="role"]', "petugas");
+    await page.click('button:has-text("Simpan")');
+    await page.waitForLoadState("networkidle");
+    await expect(page.locator(`text=${email}`)).toBeVisible();
+
+    const row = page.locator(`text=${email}`).locator("xpath=ancestor::div[contains(@class,'flex')][1]");
 
     // Nonaktifkan
-    await jokoRow.locator('button:has-text("nonaktifkan")').click();
+    await row.locator('button:has-text("nonaktifkan")').click();
     await page.waitForLoadState("networkidle");
-    await expect(jokoRow.locator("text=nonaktif")).toBeVisible();
+    await expect(row.locator("text=nonaktif")).toBeVisible();
 
     // Aktifkan kembali
-    await jokoRow.locator('button:has-text("aktifkan")').click();
+    await row.locator('button:has-text("aktifkan")').click();
     await page.waitForLoadState("networkidle");
-    await expect(jokoRow.locator("text=aktif").first()).toBeVisible();
+    await expect(row.locator("text=aktif").first()).toBeVisible();
   });
 
   test("reset password akun petugas", async ({ page }) => {
-    const jokoRow = page.locator("text=joko@parkir.id").locator("xpath=ancestor::div[contains(@class,'flex')][1]");
+    // Pakai akun sendiri supaya joko@parkir.id (dipakai spec lain) tetap petugas123
+    const email = `reset-${Date.now()}@parkir.id`;
+    await page.fill('input[name="name"]', "Petugas Reset");
+    await page.fill('input[name="email"]', email);
+    await page.fill('input[name="password"]', "temp12345");
+    await page.selectOption('select[name="role"]', "petugas");
+    await page.click('button:has-text("Simpan")');
+    await page.waitForLoadState("networkidle");
+    await expect(page.locator(`text=${email}`)).toBeVisible();
+
+    const row = page.locator(`text=${email}`).locator("xpath=ancestor::div[contains(@class,'flex')][1]");
 
     // Buka input reset
-    await jokoRow.locator("summary").filter({ hasText: "reset" }).click();
+    await row.locator("summary").filter({ hasText: "reset" }).click();
 
     // Isi password baru
-    await jokoRow.locator('input[name="newPassword"]').fill("newpass123");
-    await jokoRow.locator('button:has-text("Simpan")').click();
+    await row.locator('input[name="newPassword"]').fill("newpass123");
+    await row.locator('button:has-text("Simpan")').click();
 
     await page.waitForLoadState("networkidle");
     // Pastikan tidak ada error, akun tetap terlihat
-    await expect(page.locator("text=joko@parkir.id")).toBeVisible();
+    await expect(page.locator(`text=${email}`)).toBeVisible();
   });
 });

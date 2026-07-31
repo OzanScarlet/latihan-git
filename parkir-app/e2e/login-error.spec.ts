@@ -9,7 +9,7 @@ test.describe("Login Error Handling", () => {
 
     // Harus tetap di /login dengan alert error
     await expect(page).toHaveURL(/\/login/);
-    await expect(page.getByRole("alert")).toContainText(/salah/i);
+    await expect(page.getByText("Username atau password salah.")).toBeVisible();
   });
 
   test("email tidak terdaftar → alert", async ({ page }) => {

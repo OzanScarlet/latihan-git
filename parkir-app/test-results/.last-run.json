@@ -1,20 +1,4 @@
 {
-  "status": "interrupted",
-  "failedTests": [
-    "2e649a8d3dfe702f883c-1a0ea2bfcd458a2b1c27",
-    "2e649a8d3dfe702f883c-fa9923cd6228de692d0f",
-    "31151e41727c1bbae92c-d73aa4369d2c523a835c",
-    "31151e41727c1bbae92c-a4582f58367db82ce578",
-    "d748ac400d08b85935ef-8c7a462163c34a5ffcd6",
-    "aa38a869995c4c08644d-194f3b6da6e80726054d",
-    "aa38a869995c4c08644d-abeddf893d217792490e",
-    "aa38a869995c4c08644d-8aecdd140ef12b680426",
-    "25ab1bfc84c57e3e3a45-63bd60c863dc42f9cebc",
-    "5c33cb6763d2b7cbf4a6-ac4764e1291c19fad9d0",
-    "10342be593946fbb523f-c957fc7812976f7f4a19",
-    "2e649a8d3dfe702f883c-3b6e34e3b04e6666a21e",
-    "2e649a8d3dfe702f883c-945fdf3a4750d6a7feaf",
-    "31151e41727c1bbae92c-7084b624b0fd1d0b8f97",
-    "31151e41727c1bbae92c-52306ddb48d46ab5f93c"
-  ]
+  "status": "passed",
+  "failedTests": []
 }

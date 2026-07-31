@@ -6,13 +6,6 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const session = await auth();
   if (!session || session.user.role !== "admin") redirect("/login");
 
-  const nav = [
-    { href: "/admin/dashboard", label: "Dashboard" },
-    { href: "/admin/zones", label: "Zona & Slot" },
-    { href: "/admin/petugas", label: "Petugas" },
-    { href: "/admin/reports", label: "Laporan" },
-  ];
-
   return (
     <div className="min-h-screen flex flex-col">
       <header className="border-b border-slate-200 bg-white">
@@ -20,17 +13,40 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <Link href="/admin/dashboard" className="font-semibold text-slate-900">
             ParkirKu <span className="text-xs font-normal text-slate-400">Admin</span>
           </Link>
+
           <nav className="flex items-center gap-1">
-            {nav.map((n) => (
-              <Link
-                key={n.href}
-                href={n.href}
-                className="rounded-md px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-100 hover:text-slate-900"
-              >
-                {n.label}
-              </Link>
-            ))}
+            <Link
+              href="/admin/dashboard"
+              className="rounded-md px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+            >
+              Dashboard
+            </Link>
+            <Link
+              href="/petugas/check-in"
+              className="rounded-md px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+            >
+              Check-in
+            </Link>
+            <Link
+              href="/admin/zones"
+              className="rounded-md px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+            >
+              Zona & Slot
+            </Link>
+            <Link
+              href="/admin/petugas"
+              className="rounded-md px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+            >
+              Petugas
+            </Link>
+            <Link
+              href="/admin/reports"
+              className="rounded-md px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+            >
+              Laporan
+            </Link>
           </nav>
+
           <form
             action={async () => {
               "use server";
